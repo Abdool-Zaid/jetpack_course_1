@@ -1,17 +1,24 @@
 package com.example.jetpack_course_1
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,50 +33,34 @@ class MainActivity : ComponentActivity() {
         setContent {
             Jetpack_course_1Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LazyColumn (
-
-                        modifier = Modifier.padding(innerPadding)
-                            .fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-
-                    )
-                    {
-                        items(count = 100) {
-                            i->
-                            Print_string(
-                                "string_${i+1}"
-
-                            )
-                        }
-                    }
+                    Counter(innerPadding)
                 }
             }
         }
     }
 }
-
-@Composable // composible is a kotlin function
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
+@SuppressLint("UnrememberedMutableState")
 @Composable
-fun GreetingPreview() {
-    Jetpack_course_1Theme {
-        Greeting("Android")
+fun Counter(paddingValues: PaddingValues){
+    var count_val: Int by remember { mutableStateOf(0) }
+    Column (
+
+        modifier = Modifier.padding(paddingValues)
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+
+    )
+    {
+        Text("Count : ${count_val.toString()}")
+        Button(onClick = {
+                count_val++
+        }) {
+            Text("iterate count")
+        }
+
+
+
+
     }
-}
-
-@Composable
-fun Print_string(str: String , modifier: Modifier = Modifier){
-    Text(
-        text= str,
-        modifier= modifier,
-        color = Color.Green,
-        fontSize = 20.sp
-    )
 }
