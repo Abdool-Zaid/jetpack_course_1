@@ -35,6 +35,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Jetpack_course_1Theme {
+
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     list_viewer(innerPadding)
                 }
@@ -44,6 +45,15 @@ class MainActivity : ComponentActivity() {
 }
 
 
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    Jetpack_course_1Theme {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            list_viewer(innerPadding)
+        }
+    }
+}
  @Composable
  fun list_viewer(paddingValues: PaddingValues){
      var inp_str: String by remember { mutableStateOf("") }
@@ -53,7 +63,9 @@ class MainActivity : ComponentActivity() {
              .fillMaxSize(),
          horizontalAlignment = Alignment.CenterHorizontally
      ) {
-         Row {
+         Row (
+             horizontalArrangement = Arrangement.Start
+         ){
              TextField(
                  value = inp_str,
                  onValueChange = { text ->
